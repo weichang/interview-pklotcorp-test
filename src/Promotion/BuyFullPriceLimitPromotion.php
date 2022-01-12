@@ -1,20 +1,23 @@
 <?php
 
+
 namespace src\Promotion;
 
-class BuySpecificPricePromotion extends Promotion
+
+class BuyFullPriceLimitPromotion extends Promotion
 {
     public $price = 0;
-    public $targetTag;
+    public $discountPrice = 0;
     public $result = [];
-    public $percentOff;
+    public $limitNum;
 
-    // 訂單滿 X 元折 Z %
-    public function buySpecificPricePromotion($price, $percentOff)
+
+    public function buyFullPriceLimitPromotion($price, $discountPrice, $limitNum)
     {
         $this->price = $price;
-        $this->percentOff = $percentOff;
-        $this->name = "訂單滿 $this->price 元折 $this->percentOff %";
+        $this->discountPrice = $discountPrice;
+        $this->limitNum = $limitNum;
+        $this->name = "訂單滿 $this->price 元折 $this->discountPrice 元，此折扣在全站總共只能套⽤ $this->limitNum 次";
         $this->note = "";
     }
 
@@ -27,10 +30,8 @@ class BuySpecificPricePromotion extends Promotion
         if ($totalPrice >= $this->price) {
             $this->result['name'] = $this->name;
             $this->result['note'] = $this->note;
-            $amount = $totalPrice - ($totalPrice * ((100 - $this->percentOff) / 100));
-            $this->result['amount'] = $amount;
+            $this->result['amount'] = $this->discountPrice;
             $this->result['products'] = [];
         }
     }
-
 }

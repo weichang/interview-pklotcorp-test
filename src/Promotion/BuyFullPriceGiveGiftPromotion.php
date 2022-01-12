@@ -2,21 +2,21 @@
 
 namespace src\Promotion;
 
-class BuySpecificPricePromotion extends Promotion
-{
-    public $price = 0;
-    public $targetTag;
-    public $result = [];
-    public $percentOff;
 
-    // 訂單滿 X 元折 Z %
-    public function buySpecificPricePromotion($price, $percentOff)
+class BuyFullPriceGiveGiftPromotion extends Promotion
+{
+
+    public $price = 0;
+    public $result = [];
+    public $gift;
+
+    public function buyFullPriceGiveGiftPromotion($price, $gift)
     {
         $this->price = $price;
-        $this->percentOff = $percentOff;
-        $this->name = "訂單滿 $this->price 元折 $this->percentOff %";
-        $this->note = "";
+        $this->gift = $gift;
+        $this->name = "訂單滿 $this->price 元 送$this->gift ";
     }
+
 
     public function process($orders)
     {
@@ -27,10 +27,8 @@ class BuySpecificPricePromotion extends Promotion
         if ($totalPrice >= $this->price) {
             $this->result['name'] = $this->name;
             $this->result['note'] = $this->note;
-            $amount = $totalPrice - ($totalPrice * ((100 - $this->percentOff) / 100));
-            $this->result['amount'] = $amount;
+            $this->result['amount'] = 0;
             $this->result['products'] = [];
         }
     }
-
 }

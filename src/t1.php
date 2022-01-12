@@ -10,6 +10,7 @@ $calculator = new Calculator();
 $originPrice = $calculator->totalPrice($orderList);
 $totalDiscount = $calculator->calculatorPromotion($orderList);
 
+
 echo "購買商品: \n ";
 echo "---------------------------------------------------\n";
 $id = 1;
@@ -25,13 +26,13 @@ echo "--------------------------------------------------- \n";
 $discountTotal = 0;
 $totalPrice = $originPrice;
 foreach ($totalDiscount as $r) {
-    if (!empty($r['amount'])) {
+    if (!empty($r)) {
         $totalPrice -= $r['amount'];
         $discountTotal += $r['amount'];
         $discountAmount = $r['amount'];
         $discountName = $r['name'];
         $discountNote = $r['note'];
-        echo "- 折抵  $$discountAmount, ( $discountName )  \n";
+        echo "- 折抵  $$discountAmount, ($discountName) \n";
         $id = 1;
         if (!empty($r['products'])) {
             foreach ($r['products'] as $product) {
