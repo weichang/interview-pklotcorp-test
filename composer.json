@@ -12,9 +12,13 @@
         "codedungeon/phpunit-result-printer": "^0.28.0"
     },
     "autoload": {
+        "psr-4": {
+            "Src\\": "src/"
+        },
         "classmap": [
             "src/",
             "tests/"
         ]
+        
     }
 }
